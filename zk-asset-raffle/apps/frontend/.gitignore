@@ -1,0 +1,40 @@
+### Node
+node_modules/
+npm-debug.log*
+*.log
+
+### Next.js
+.next/
+out/
+.swc/
+.turbo/
+
+### Build artifacts
+dist/
+build/
+coverage/
+
+### Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+!.env.example
+
+### Editors & system
+.DS_Store
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+### TypeScript
+*.tsbuildinfo
+
+### Package managers
+# Keep Yarn's lockfile; ignore others to avoid churn
+package-lock.json
+pnpm-lock.yaml
+.pnp*
+.yarn/

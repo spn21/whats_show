@@ -1,0 +1,14 @@
+{
+  "name": "@zk-asset-raffle/sdk",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@trpc/client": "^11.8.1",
+    "@zk-asset-raffle/trpc": "workspace:*",
+    "@zk-asset-raffle/types": "workspace:*"
+  }
+}

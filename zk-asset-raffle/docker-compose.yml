@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: zk-asset-raffle-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: zk_asset_raffle
+    ports:
+      - "5432:5432"
+    volumes:
+      - zk_asset_raffle_pg:/var/lib/postgresql/data
+
+volumes:
+  zk_asset_raffle_pg:

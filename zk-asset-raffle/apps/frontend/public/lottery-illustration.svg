@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="320" height="320" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="160" cy="160" r="150" fill="#F3F4FF" />
+  
+  <!-- Lottery Ticket -->
+  <rect x="80" y="100" width="160" height="120" rx="8" fill="white" stroke="#4F46E5" stroke-width="3"/>
+  <line x1="100" y1="100" x2="100" y2="220" stroke="#4F46E5" stroke-width="2" stroke-dasharray="5 5"/>
+  
+  <!-- QR Code -->
+  <rect x="120" y="120" width="80" height="80" rx="4" fill="#F9FAFB" stroke="#4F46E5" stroke-width="2"/>
+  
+  <!-- QR Code Pattern -->
+  <rect x="130" y="130" width="15" height="15" rx="2" fill="#4F46E5"/>
+  <rect x="155" y="130" width="15" height="15" rx="2" fill="#4F46E5"/>
+  <rect x="175" y="130" width="15" height="15" rx="2" fill="#4F46E5"/>
+  <rect x="130" y="155" width="15" height="15" rx="2" fill="#4F46E5"/>
+  <rect x="175" y="155" width="15" height="15" rx="2" fill="#4F46E5"/>
+  <rect x="130" y="175" width="15" height="15" rx="2" fill="#4F46E5"/>
+  <rect x="155" y="175" width="15" height="15" rx="2" fill="#4F46E5"/>
+  <rect x="175" y="175" width="15" height="15" rx="2" fill="#4F46E5"/>
+  
+  <!-- Stars -->
+  <path d="M60 80L63.5 87.5L72 90L63.5 92.5L60 100L56.5 92.5L48 90L56.5 87.5L60 80Z" fill="#8B5CF6"/>
+  <path d="M240 70L243.5 77.5L252 80L243.5 82.5L240 90L236.5 82.5L228 80L236.5 77.5L240 70Z" fill="#3B82F6"/>
+  <path d="M220 220L223.5 227.5L232 230L223.5 232.5L220 240L216.5 232.5L208 230L216.5 227.5L220 220Z" fill="#8B5CF6"/>
+  
+  <!-- Lock Symbol -->
+  <circle cx="210" cy="150" r="25" fill="#EEF2FF"/>
+  <path d="M210 135C204.477 135 200 139.477 200 145V150H196V170H224V150H220V145C220 139.477 215.523 135 210 135ZM210 139C213.314 139 216 141.686 216 145V150H204V145C204 141.686 206.686 139 210 139Z" fill="#4F46E5"/>
+  
+  <!-- ZK Symbol -->
+  <circle cx="110" cy="150" r="25" fill="#EEF2FF"/>
+  <path d="M100 140H120V144L105 160H120V165H100V161L115 145H100V140Z" fill="#8B5CF6"/>
+  <path d="M125 140H130L120 165H115L125 140Z" fill="#8B5CF6"/>
+</svg>

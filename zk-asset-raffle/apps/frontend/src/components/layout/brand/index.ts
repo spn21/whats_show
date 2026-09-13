@@ -1,0 +1,1 @@
+export { ZkAssetRaffleLogo } from "./ZkAssetRaffleLogo";

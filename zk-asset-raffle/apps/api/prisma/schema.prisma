@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Activity {
+  id             String   @id @db.VarChar(16)
+  name           String   @db.VarChar(80)
+  totalItems     Int
+  key            String?  @db.VarChar(64)
+  merkleRoot     String?  @db.VarChar(128)
+  status         String   @default("pending") @db.VarChar(16)
+  creatorAddress String?  @db.VarChar(64)
+  createdAt      DateTime @default(now())
+
+  prizes Prize[]
+  items  Item[]
+}
+
+model Prize {
+  id          Int      @id @default(autoincrement())
+  activityId  String   @db.VarChar(16)
+  prizeConfig String   @db.Text
+
+  activity Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+}
+
+model Item {
+  id            Int     @id @default(autoincrement())
+  activityId    String  @db.VarChar(16)
+  sid           String  @unique @db.VarChar(64)
+  r_i           String? @db.VarChar(64)
+  win_i         Int?
+  leaf          String? @db.VarChar(128)
+  proof         String? @db.Text
+  encryptedData String? @db.Text
+
+  activity Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+}

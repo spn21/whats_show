@@ -1,0 +1,7 @@
+# Foundry artifacts
+/lib/
+/out/
+/cache/
+
+# Local env
+/.env
