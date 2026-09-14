@@ -4,7 +4,7 @@ use std::{env, fs, path::PathBuf};
 fn main() {
     let root = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap());
     let dataset = root.join("agents/cluster_knowledge");
-    println!("cargo:rerun_if_changed = {}", dataset.display());
+    println!("cargo:rerun-if-changed ={}", dataset.display());
     let mut paths: Vec<_> = fs::read_dir(&dataset)
         .unwrap()
         .map(|e| e.unwrap().path())
@@ -14,14 +14,14 @@ fn main() {
     assert!(!paths.is_empty(), "embedded knowledge not be empty");
 
     //
-    let mut generated = String::from("pub const Documents: &[(&str, &str)] = &[\n");
+    let mut generated = String::from("pub const DOCUMENTS: &[(&str, &str)] = &[\n");
     let mut digest = Sha256::new();
     for path in paths {
         let name = path.file_name().unwrap().to_str().unwrap();
         let contents = fs::read_to_string(&path).unwrap();
         digest.update(name.as_bytes());
         digest.update(contents.as_bytes());
-        generated.push_str(&format!("({name:?}, {contents:?}, \n"));
+        generated.push_str(&format!("({name:?}, {contents:?}), \n"));
     }
 
     generated.push_str("];\n");
@@ -44,7 +44,7 @@ fn main() {
     implementation_paths.sort();
     for path in implementation_paths {
         if path.is_file() {
-            println!("cargo:rerun_if_changed = {}", path.display());
+            println!("cargo:rerun-if-changed ={}", path.display());
             digest.update(fs::read(path).unwrap());
         }
     }
@@ -68,7 +68,7 @@ fn main() {
         .collect();
 
     generated.push_str(&format!(
-        "pub const build_fingerprint: &str = {:?};\n",
+        "pub const BUILD_FINGERPRINT: &str = {:?};\n",
         digest_hex
     ));
 

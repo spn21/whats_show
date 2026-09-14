@@ -163,7 +163,11 @@ impl AgentRunner {
                                 messages.push(message);
                                 messages.push(Message::new(
                                     "user", 
-                                    format!("out_put failed")));
+                                    format!("out_put failed:{error:#}")));
+    //                         Read any necessary source and return the complete corrected \
+    //  JSON object. An empty findings list is valid; \
+    //  a parse failure is not an empty result."
+
                             }
 
                             Err(error) => return Err(error),

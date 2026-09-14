@@ -1,0 +1,27 @@
+
+#deepseek response_format to "json_object" (system_output)
+base_url = "https://api.deepseek.com/v1"
+api_key_env = "LLM_API_KEY"
+planner_model = "deepseek-chat"
+researcher_model = "deepseek-chat"
+auditor_model = "deepseek-chat"
+
+concurrency = 3
+request_timeout_secs = 120
+task_timeout_secs = 900
+max_requests = 300
+max_tool_rounds = 12
+max_output_tokens = 4096
+max_context_chars = 160000
+max_tool_chars = 24000
+max_file_bytes = 1000000
+max_project_bytes = 20000000
+max_specialists_per_file = 2
+max_findings_per_task = 20
+http_retries = 2
+format_retries = 2
+
+json_mode = false
+
+exclude_dirs = [".git", "node_modules", "out", "cache", "target", "test", "tests"]
+threat_model = "Untrusted external callers and adversarial external contracts. Check access control, reentrancy, accounting, oracle manipulation, signatures and denial of service. State deployment assumptions explicitly. Treat missing dependency implementations as unknown."

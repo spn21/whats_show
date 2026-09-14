@@ -17,7 +17,7 @@ pub enum Severity {
 pub struct  Evidence {
     pub file: String,
     pub start_line: usize,
-    pub endline: usize,
+    pub end_line: usize,
     pub snippet: String,
 }
 
@@ -54,13 +54,13 @@ impl Finding {
                 !evidence.snippet.trim().is_empty(),
                 "empty evidence snippet"
             );
-            let text = source.lines(&evidence.file, evidence.start_line, evidence.endline)?;
+            let text = source.lines(&evidence.file, evidence.start_line, evidence.end_line)?;
             ensure!(
                 text.contains(&evidence.snippet),
                 "evidence snippet does not match {}:{}-{}",
                 evidence.file,
                 evidence.start_line,
-                evidence.endline
+                evidence.end_line
             );
         }
         Ok(())
@@ -114,9 +114,14 @@ impl Plan {
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
 #[allow(non_camel_case_types)]
 pub enum Verdict {
+    #[serde(rename = "accepted")]
     Accepted,
+
+    #[serde(rename = "rejected")]
     Rejected,
-    Need_more_evidence, //variant: should be NeedMoreEvidence 
+
+    #[serde(rename = "needs_more_evidence")]
+    Need_more_evidence,  //variant: should be NeedMoreEvidence 
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -128,6 +133,33 @@ pub struct Review {
     pub evidence: Vec<Evidence>,
 }
 
+impl Review {
+    pub fn validate(&self, source: &crate::source::Project) -> Result<()> {
+        ensure!(
+            self.confidence <= 100 && !self.rationale.trim().is_empty(),
+            "invalid review confidence/rationale"
+        );
+
+        if self.verdict == Verdict::Accepted {
+            ensure!(
+                !self.evidence.is_empty(),
+                "accepted review requires independent source evidence"
+            );
+        }
+
+        for e in &self.evidence {
+            ensure!(
+                !e.snippet.trim().is_empty()
+                    && source
+                        .lines(&e.file, e.start_line, e.end_line)?
+                        .contains(&e.snippet),
+                "review evidence does not match source"
+            );
+        }
+
+        Ok(())
+    }
+}
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Candidate {

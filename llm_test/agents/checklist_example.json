@@ -1,0 +1,142 @@
+{
+    "category":"Attacker's Mindset",
+    "description":"main attack types",
+    "example":[
+        {
+            "category": "Reentrancy Attack",
+            "description": "An attacker exploits a contract's logic to repeatedly call into a function before the previous invocation is complete, potentially draining funds.",
+            "data": [
+                {
+                    "id": "SOL-AM-ReentrancyAttack-1",
+                    "question": "Is there a view function that can return a stale value during interactions?",
+                    "description": "Read-only reentrancy. The read-only reentrancy is a reentrancy scenario where a view function is reentered, which in most cases is unguarded as it does not modify the contract's state. However, if the state is inconsistent, wrong values could be reported. Other protocols relying on a return value can be tricked into reading the wrong state to perform unwanted actions.",
+                    "remediation": "Extend the reentrancy guard to the view functions as well.",
+                    "references": [
+                        "https://medium.com/@zokyo.io/read-only-reentrancy-attacks-understanding-the-threat-to-your-smart-contracts-99444c0a7334",
+                        "https://solodit.xyz/issues/m-03-read-only-reentrancy-is-possible-code4rena-angle-protocol-angle-protocol-invitational-git",
+                        "https://solodit.xyz/issues/h-13-balancerpairoracle-can-be-manipulated-using-read-only-reentrancy-sherlock-none-blueberry-update-git"
+                    ],
+                    "tags": [
+                        "Reentrancy Attack"
+                    ]
+                },
+                {
+                    "id": "SOL-AM-ReentrancyAttack-2",
+                    "question": "Is there any state change after interaction to an external contract?",
+                    "description": "Untrusted external contract calls could callback leading to unexpected results such as multiple withdrawals or out-of-order events.",
+                    "remediation": "Use check-effects-interactions pattern or reentrancy guards.",
+                    "references": [
+                        "https://www.geeksforgeeks.org/reentrancy-attack-in-smart-contracts/",
+                        "https://solodit.xyz/issues/m-09-malicious-royalty-recipient-can-steal-excess-eth-from-buy-orders-code4rena-caviar-caviar-private-pools-git",
+                        "https://solodit.xyz/issues/h-01-re-entrancy-in-settleauction-allow-stealing-all-funds-code4rena-kuiper-kuiper-contest-git"
+                    ],
+                    "tags": [
+                        "Reentrancy Attack"
+                    ]
+                }
+            ]
+        },
+        {
+            "category": "Math",
+            "description": "",
+            "data": [
+                {
+                    "id": "SOL-Basics-Math-1",
+                    "question": "Is the mathematical calculation accurate?",
+                    "description": "Ensure that the logic behind any mathematical operation is correctly implemented.",
+                    "remediation": "Verify calculations against established mathematical rules in the document or the comments.",
+                    "references": [],
+                    "tags": []
+                },
+                {
+                    "id": "SOL-Basics-Math-2",
+                    "question": "Is there any loss of precision in time calculations?",
+                    "description": "Loss of precision can lead to significant errors over time or frequent calculations.",
+                    "remediation": "Use appropriate data types and ensure rounding methods are correctly applied.",
+                    "references": [],
+                    "tags": []
+                },
+                {
+                    "id": "SOL-Basics-Math-3",
+                    "question": "Are you aware that expressions like `1 day` are cast to `uint24`, potentially causing overflows?",
+                    "description": "Operations with certain expressions might lead to unintended data type conversions.",
+                    "remediation": "Always be explicit with data types and avoid relying on implicit type conversions.",
+                    "references": [],
+                    "tags": []
+                },
+                {
+                    "id": "SOL-Basics-Math-4",
+                    "question": "Is there any case where dividing is done before multiplication?",
+                    "description": "Multiplying before division is generally better to keep the precision.",
+                    "remediation": "To avoid loss of precision, always multiply first and then divide.",
+                    "references": [],
+                    "tags": []
+                },
+                {
+                    "id": "SOL-Basics-Math-5",
+                    "question": "Does the rounding direction matter?",
+                    "description": "Rounding direction often matters when the accounting relies on user's shares.",
+                    "remediation": "Use the proper rounding direction in favor of the protocol",
+                    "references": [],
+                    "tags": []
+                },
+                {
+                    "id": "SOL-Basics-Math-6",
+                    "question": "Is there a possibility of division by zero?",
+                    "description": "Division by zero will revert the transaction.",
+                    "remediation": "Always check denominators before division.",
+                    "references": [],
+                    "tags": []
+                },
+                {
+                    "id": "SOL-Basics-Math-7",
+                    "question": "Even in versions like `>0.8.0`, have you ensured variables won't underflow or overflow leading to reverts?",
+                    "description": "Variables can sometimes exceed their bounds, causing reverts.",
+                    "remediation": "Use checks to prevent variable underflows and overflows.",
+                    "references": [],
+                    "tags": []
+                },
+                {
+                    "id": "SOL-Basics-Math-8",
+                    "question": "Are you aware that assigning a negative value to an unsigned integer causes a revert?",
+                    "description": "Unsigned integers cannot hold negative values.",
+                    "remediation": "Always ensure that only non-negative values are assigned to unsigned integers.",
+                    "references": [],
+                    "tags": []
+                },
+                {
+                    "id": "SOL-Basics-Math-9",
+                    "question": "Have you properly reviewed all usages of `unchecked{}`?",
+                    "description": "Arithmetics do not overflow inside the `unchecked{}` block.",
+                    "remediation": "Use `unchecked{}` only when it is strictly guaranteed that no overflow/underflow happens.",
+                    "references": [],
+                    "tags": []
+                },
+                {
+                    "id": "SOL-Basics-Math-10",
+                    "question": "In comparisons using < or >, should you instead be using \u2264 or \u2265?",
+                    "description": "Usage of incorrect inequality can cause unexpected behavior for the edge values.",
+                    "remediation": "Review the logic and ensure the appropriate comparison operators are used.",
+                    "references": [],
+                    "tags": []
+                },
+                {
+                    "id": "SOL-Basics-Math-11",
+                    "question": "Have you taken into consideration mathematical operations in inline assembly?",
+                    "description": "Inline assembly can behave differently than high-level language constructs. (division by zero, overflow/underflow do not revert!)",
+                    "remediation": "Ensure mathematical operations in inline assembly are properly tested and verified.",
+                    "references": [],
+                    "tags": []
+                },
+                {
+                    "id": "SOL-Basics-Math-12",
+                    "question": "What happens for the minimum/maximum values included in the calculation?",
+                    "description": "If the calculation includes numerous terms, you need to confirm all edge cases where each term has the possible min/max values.",
+                    "remediation": "Ensure the edge cases do not lead to unexpected outcome.",
+                    "references": [],
+                    "tags": []
+                }
+            ]
+        }
+    ]
+}
