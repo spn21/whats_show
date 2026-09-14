@@ -32,4 +32,4 @@ flowchart TD
 
 
 (by the way:当问deepseek和gpt redis是ap还是cp, 给出https://redis.io/docs/latest/operate/oss_and_stack/reference/cluster-spec/#write-safety 时, gpt被说服从ap改为cp, deepseek仍觉得是ap)
-(互联网上说redis是ap 个人实际上感觉redis sc都做不到, redis node 会根据 key 去算查询应该落在哪个 node，不是自己就只会路由查询，单个 node 上根本就没有全量数据，availability就很糟糕了)
+(互联网上说redis是ap 个人实际上感觉redis ac都做不到, redis node 会根据 key 去算查询应该落在哪个 node，不是自己就只会路由查询，单个 node 上根本就没有全量数据，availability就很糟糕了)
